@@ -1,0 +1,45 @@
+//prisma/scema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model RetailRecord {
+  id           Int      @id @default(autoincrement())
+  userId       String 
+  invoice      String
+  stockCode    String
+  description  String
+  quantity     Int
+  invoiceDate  DateTime
+  price        Float
+  customerId   String
+  country      String 
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  account      Account  @relation("AccountToRetailRecords", fields: [userId], references: [accountId])
+  @@index([stockCode])
+  @@index([country])
+  @@index([customerId])
+  @@index([invoice])
+  @@index([invoiceDate])
+  @@index([price])
+  @@index([stockCode, country])
+  @@index([invoiceDate, country])
+  @@index([customerId, invoiceDate])
+}
+model Account {
+  id            String   @id @default(cuid())
+  accountId     String   @unique
+  OramaIndex    Json?  
+ retailRecords RetailRecord[] @relation("AccountToRetailRecords")
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+} 
