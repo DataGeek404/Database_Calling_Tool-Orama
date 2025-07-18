@@ -48,6 +48,6 @@ Retail data is from [Online Retail II UCI](https://www.kaggle.com/datasets/mashl
 
 ---
 
-**Created by Brian Mwangi** -
+**Created by James Muchiri** -
 **AI Engineer** 
 ___
